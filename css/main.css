@@ -1,0 +1,129 @@
+/* main.css — MakD Ultra-Premium Glass UI for Feedback form
+   Replace your existing css/main.css with this file.
+   This file keeps Montserrat font-face declarations and provides a dark glass aesthetic
+   with spacious layout and large question textareas.
+*/
+
+/* fonts (keep existing files in /fonts/) */
+@font-face { font-family: Montserrat-Regular; src: url('../fonts/montserrat/Montserrat-Regular.ttf'); }
+@font-face { font-family: Montserrat-Bold; src: url('../fonts/montserrat/Montserrat-Bold.ttf'); }
+@font-face { font-family: Montserrat-ExtraBold; src: url('../fonts/montserrat/Montserrat-ExtraBold.ttf'); }
+@font-face { font-family: Montserrat-Medium; src: url('../fonts/montserrat/Montserrat-Medium.ttf'); }
+
+:root{
+  --bg-900:#060608;
+  --card-bg: rgba(255,255,255,0.03);
+  --muted: rgba(255,255,255,0.78);
+  --accent: #c4161c;
+  --glass-border: rgba(255,255,255,0.06);
+  --input-bg: rgba(255,255,255,0.025);
+  --accent-soft: rgba(196,22,28,0.06);
+}
+
+/* base reset */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Montserrat-Regular,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#fff;background: linear-gradient(135deg, #000000 0%, #0a0a0f 50%, #050507 100%);
+;-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:0 auto;padding:34px 18px}
+
+/* feedback shell */
+.feedback-shell{display:flex;flex-direction:column;gap:18px;align-items:stretch}
+.feedback-header{display:flex;justify-content:space-between;align-items:center;padding:6px 8px}
+.feedback-header .brand{font-weight:800;color:var(--accent);font-size:20px}
+.feedback-header .meta{color:var(--muted);font-size:13px}
+
+/* glass card */
+.glass-card{
+  width:100%;
+  background: linear-gradient(135deg, #4d0000 0%, #8b0000 40%, #c4161c 70%, #ff1a1a 100%);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  padding:28px;
+  box-shadow: 0 12px 50px rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+/* form title */
+.form-title{font-family:Montserrat-ExtraBold;color:#fff;font-size:22px;margin:0 0 6px}
+.form-sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+
+/* labels and fields */
+.field-label{display:block;color:var(--muted);font-weight:700;margin-bottom:8px}
+.req{color:var(--accent);margin-left:4px;font-weight:800}
+
+/* input style */
+.input1{
+  width:100%;
+  display:block;
+  padding:14px 16px;
+  border-radius:12px;
+  background:var(--input-bg);
+  border:1px solid rgba(255,255,255,0.04);
+  color:#fff;
+  font-weight:600;
+  resize:vertical;
+  min-height:44px;
+}
+.input1.large{min-height:220px;padding:18px 18px;border-radius:14px;font-size:15px}
+.input1:focus{outline:none;box-shadow:0 8px 30px rgba(0,0,0,0.5) inset;border-color:rgba(255,255,255,0.08)}
+
+/* select styling */
+/* Fix for dropdown options invisible text */
+.select1 option {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+
+/* rating pills */
+.rating-group{display:flex;gap:12px;align-items:center;margin-top:8px}
+.rating-pill{display:inline-flex;align-items:center;background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:700}
+.rating-pill input{margin-right:8px}
+
+/* big textarea for q's */
+.big-text{
+  width:100%;
+  min-height:86px;
+  padding:12px 14px;
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+  color:#fff;
+  resize:vertical;
+  font-weight:600;
+}
+
+/* spacing for rows */
+.row{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:12px}
+.row > [class*="col-"]{flex:1 1 0;min-width:0}
+.col-md-6{flex:0 0 48%}
+.col-12{flex:0 0 100%}
+.q-row{margin-top:10px;margin-bottom:14px}
+
+/* submit button */
+.container-contact1-form-btn{display:flex;justify-content:center;margin-top:10px}
+.contact1-form-btn{
+  min-width:220px;height:52px;border-radius:999px;background:linear-gradient(90deg,#7ee1ff 0%, #6af2c1 100%);color:#08232a;font-weight:800;border:none;box-shadow:0 12px 38px rgba(10,204,255,0.10);
+  display:inline-flex;align-items:center;justify-content:center;padding:0 22px;font-size:15px;cursor:pointer;
+}
+.contact1-form-btn i{margin-left:8px}
+.contact1-form-btn:hover{transform:translateY(-3px);transition:transform .18s ease}
+
+/* footer */
+.form-footer{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;padding:4px 8px}
+
+/* admin floating button (compact) */
+.admin-floating{
+  position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:800;z-index:9999;box-shadow:0 10px 30px rgba(196,22,28,0.08);
+}
+
+/* table-glass for admin pages (unchanged but polished) */
+.table-glass{width:100%;border-collapse:collapse}
+.table-glass th, .table-glass td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.04);text-align:left;color:#fff}
+
+/* responsive */
+@media (max-width:900px){
+  .col-md-6{flex:0 0 100%}
+  .glass-card{padding:20px}
+  .form-title{font-size:20px}
+}

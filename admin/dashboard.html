@@ -1,0 +1,320 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#f3f5fb;
+      color:#222;
+    }
+    header{
+      background:#111827;
+      color:#fff;
+      padding:14px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    header h1{
+      font-size:20px;
+      margin:0;
+    }
+    nav a{
+      color:#e5e7eb;
+      margin-left:18px;
+      text-decoration:none;
+      font-size:14px;
+    }
+    nav a:hover{
+      text-decoration:underline;
+    }
+    .container{
+      padding:24px;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .stats{
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px;
+      margin-bottom:24px;
+    }
+    .stat-card{
+      flex:1 1 160px;
+      background:#ffffff;
+      border-radius:10px;
+      padding:16px 18px;
+      box-shadow:0 4px 10px rgba(15,23,42,0.08);
+    }
+    .stat-label{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+      color:#6b7280;
+    }
+    .stat-value{
+      font-size:22px;
+      font-weight:bold;
+      margin-top:6px;
+    }
+    .grid-two{
+      display:grid;
+      grid-template-columns: minmax(0,1.3fr) minmax(0,1fr);
+      gap:18px;
+      margin-bottom:24px;
+    }
+    .card{
+      background:#ffffff;
+      border-radius:10px;
+      padding:16px 18px;
+      box-shadow:0 4px 10px rgba(15,23,42,0.06);
+    }
+    .card h3{
+      margin-top:0;
+      margin-bottom:12px;
+      font-size:16px;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+    }
+    th, td{
+      padding:8px 10px;
+      border-bottom:1px solid #e5e7eb;
+      text-align:left;
+    }
+    th{
+      background:#f9fafb;
+      font-weight:600;
+    }
+    tbody tr:hover{
+      background:#f3f4ff;
+    }
+    .badge{
+      display:inline-block;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:11px;
+      background:#e5e7eb;
+    }
+    .btn-link{
+      font-size:13px;
+      color:#2563eb;
+      text-decoration:none;
+    }
+    .btn-link:hover{
+      text-decoration:underline;
+    }
+    .empty{
+      font-size:14px;
+      color:#6b7280;
+      padding:10px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MakD Feedback — Admin</h1>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="projects.html">Projects</a>
+      <a href="#" id="logoutLink">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total Feedbacks</div>
+        <div class="stat-value" id="statTotalFeedbacks">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Projects</div>
+        <div class="stat-value" id="statTotalProjects">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Unique Emails</div>
+        <div class="stat-value" id="statUniqueEmails">0</div>
+      </div>
+    </div>
+
+    <div class="grid-two">
+      <div class="card">
+        <h3>Hardware Projects Popularity</h3>
+        <canvas id="hardwareChart" height="220"></canvas>
+      </div>
+      <div class="card">
+        <h3>Software Projects Popularity</h3>
+        <canvas id="softwareChart" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="grid-two">
+      <div class="card">
+        <h3>Poster Projects Popularity</h3>
+        <canvas id="posterChart" height="220"></canvas>
+      </div>
+      <div class="card">
+        <h3>Experience Breakdown</h3>
+        <canvas id="experienceChart" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Recent Feedbacks</h3>
+      <table id="recentTable">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Experience</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <div id="recentEmpty" class="empty" style="display:none;">No feedbacks yet. Once someone submits the form, they will appear here.</div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      if (localStorage.getItem("mst_admin_logged_in") !== "1"){
+        window.location.href = "../azan.html";
+        return;
+      }
+
+      document.getElementById("logoutLink").addEventListener("click", function(e){
+        e.preventDefault();
+        localStorage.removeItem("mst_admin_logged_in");
+        window.location.href = "../azan.html";
+      });
+
+      let feedbacks = [];
+
+      try {
+        feedbacks = JSON.parse(localStorage.getItem("mst_feedbacks") || "[]");
+      } catch(e){ feedbacks = []; }
+
+            // Stats
+      const totalFeedbacks = feedbacks.length;
+      const uniqueEmails   = new Set(feedbacks.map(f => f.email)).size;
+
+      document.getElementById("statTotalFeedbacks").textContent = totalFeedbacks;
+      document.getElementById("statUniqueEmails").textContent   = uniqueEmails;
+      // total projects will be filled from projects.json
+      document.getElementById("statTotalProjects").textContent  = "0";
+
+      // Load projects.json to compute total projects (hardware + software + poster)
+      fetch("../data/projects.json")
+        .then(r => r.json())
+        .then(function(data){
+          const h = Array.isArray(data.hardware) ? data.hardware.length : 0;
+          const s = Array.isArray(data.software) ? data.software.length : 0;
+          const p = Array.isArray(data.poster)   ? data.poster.length   : 0;
+          const total = h + s + p;
+          document.getElementById("statTotalProjects").textContent  = String(total);
+        })
+        .catch(function(){
+          // leave as 0 on error
+        });
+
+// Charts: popularity per category
+      function buildCounts(list, field){
+        const counts = {};
+        list.forEach(function(f){
+          const key = (f && f[field]) || "";
+          if (!key) return;
+          counts[key] = (counts[key] || 0) + 1;
+        });
+        return counts;
+      }
+
+      const hardwareCounts = buildCounts(feedbacks, "hardware_project");
+      const softwareCounts = buildCounts(feedbacks, "software_project");
+      const posterCounts   = buildCounts(feedbacks, "poster_project");
+
+      function renderBarChart(canvasId, counts){
+        const el = document.getElementById(canvasId);
+        if (!el) return;
+        const labels = Object.keys(counts);
+        const data   = Object.values(counts);
+        new Chart(el.getContext("2d"), {
+          type: "bar",
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "Votes",
+              data: data
+            }]
+          },
+          options: {
+            responsive:true,
+            plugins:{ legend:{ display:false } },
+            scales:{ y:{ beginAtZero:true, precision:0 } }
+          }
+        });
+      }
+
+      renderBarChart("hardwareChart", hardwareCounts);
+      renderBarChart("softwareChart", softwareCounts);
+      renderBarChart("posterChart", posterCounts);
+
+      // Chart: experience breakdown (unchanged)
+      const expCounts = { Bad:0, Average:0, Good:0 };
+      feedbacks.forEach(f => {
+        if (f.experience && expCounts.hasOwnProperty(f.experience)){
+          expCounts[f.experience]++;
+        }
+      });
+      const expLabels = Object.keys(expCounts);
+      const expData   = Object.values(expCounts);
+
+      const ctxExp = document.getElementById("experienceChart").getContext("2d");
+      new Chart(ctxExp, {
+        type: "doughnut",
+        data: {
+          labels: expLabels,
+          datasets: [{
+            data: expData
+          }]
+        },
+        options: {
+          responsive:true,
+          plugins:{ legend:{ position:"bottom" } }
+        }
+      });
+
+
+      // Recent table
+      const tbody = document.querySelector("#recentTable tbody");
+      const empty = document.getElementById("recentEmpty");
+
+      if (!feedbacks.length){
+        empty.style.display = "block";
+      } else {
+        empty.style.display = "none";
+        const latest = feedbacks.slice().reverse().slice(0, 20);
+        latest.forEach(f => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${f.project || ""}</td>
+            <td>${f.name || ""}</td>
+            <td>${f.email || ""}</td>
+            <td><span class="badge">${f.experience || ""}</span></td>
+            <td><a class="btn-link" href="view.html?id=${encodeURIComponent(f.id)}">View</a></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

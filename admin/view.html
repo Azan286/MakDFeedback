@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>View Feedback</title>
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#f3f5fb;
+      color:#111827;
+    }
+    header{
+      background:#111827;
+      color:#fff;
+      padding:14px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    header h1{
+      font-size:20px;
+      margin:0;
+    }
+    nav a{
+      color:#e5e7eb;
+      margin-left:18px;
+      text-decoration:none;
+      font-size:14px;
+    }
+    nav a:hover{
+      text-decoration:underline;
+    }
+    .container{
+      padding:24px;
+      max-width:800px;
+      margin:0 auto;
+    }
+    .card{
+      background:#ffffff;
+      border-radius:10px;
+      padding:20px 22px;
+      box-shadow:0 4px 10px rgba(15,23,42,0.06);
+    }
+    h2{
+      margin-top:0;
+      margin-bottom:4px;
+      font-size:20px;
+    }
+    .meta{
+      font-size:13px;
+      color:#6b7280;
+      margin-bottom:16px;
+    }
+    .field-label{
+      font-size:13px;
+      font-weight:bold;
+      margin-top:10px;
+      margin-bottom:2px;
+      text-transform:uppercase;
+      letter-spacing:0.04em;
+      color:#6b7280;
+    }
+    .field-value{
+      font-size:14px;
+      white-space:pre-wrap;
+    }
+    .actions{
+      margin-top:22px;
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+    }
+    button, a.btn{
+      padding:8px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      font-size:13px;
+      text-decoration:none;
+    }
+    .btn-back{
+      background:#e5e7eb;
+      color:#111827;
+    }
+    .btn-delete{
+      background:#dc2626;
+      color:#ffffff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Feedback Details</h1>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="projects.html">Projects</a>
+      <a href="#" id="logoutLink">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div id="card" class="card" style="display:none;">
+      <h2 id="title"></h2>
+      <div id="meta" class="meta"></div>
+
+      <div class="field-label">Hardware Project</div>
+      <div id="hardwareField" class="field-value"></div>
+
+      <div class="field-label">Software Project</div>
+      <div id="softwareField" class="field-value"></div>
+
+      <div class="field-label">Poster Topic</div>
+      <div id="posterField" class="field-value"></div>
+
+      <div class="field-label">Short Questions Summary</div>
+      <div id="summary" class="field-value"></div>
+
+      <div class="field-label">Detailed Feedback</div>
+      <div id="message" class="field-value"></div>
+
+      <div class="actions">
+        <a href="dashboard.html" class="btn btn-back">Back to Dashboard</a>
+        <button id="deleteBtn" class="btn-delete">Delete Feedback</button>
+      </div>
+    </div>
+
+    <div id="notFound" style="display:none; padding:20px; text-align:center;">
+      Feedback not found.
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      if (localStorage.getItem("mst_admin_logged_in") !== "1"){
+        window.location.href = "../azan.html";
+        return;
+      }
+
+      document.getElementById("logoutLink").addEventListener("click", function(e){
+        e.preventDefault();
+        localStorage.removeItem("mst_admin_logged_in");
+        window.location.href = "../azan.html";
+      });
+
+      const params = new URLSearchParams(window.location.search);
+      const id     = params.get("id");
+
+      let feedbacks = [];
+      try {
+        feedbacks = JSON.parse(localStorage.getItem("mst_feedbacks") || "[]");
+      } catch(e){ feedbacks = []; }
+
+      const feedback = feedbacks.find(f => String(f.id) === String(id));
+
+      const card     = document.getElementById("card");
+      const notFound = document.getElementById("notFound");
+
+      if (!feedback){
+        notFound.style.display = "block";
+        return;
+      }
+
+      card.style.display = "block";
+      const titleProject = feedback.hardware_project || feedback.software_project || feedback.poster_project || feedback.project || "Feedback";
+      document.getElementById("title").textContent = titleProject + " — " + (feedback.name || "");
+      document.getElementById("meta").textContent  = (feedback.email || "") + (feedback.department ? " · " + feedback.department : "") + (feedback.experience ? " · " + feedback.experience : "");
+      document.getElementById("hardwareField").textContent = feedback.hardware_project || "—";
+      document.getElementById("softwareField").textContent = feedback.software_project || "—";
+      document.getElementById("posterField").textContent  = feedback.poster_project || "—";
+      document.getElementById("summary").textContent = feedback.short_questions_summary || "";
+      document.getElementById("message").textContent = feedback.message || "";
+
+      document.getElementById("deleteBtn").addEventListener("click", function(){
+        if (!confirm("Are you sure you want to delete this feedback?")) return;
+        const remaining = feedbacks.filter(f => String(f.id) !== String(id));
+        try {
+          localStorage.setItem("mst_feedbacks", JSON.stringify(remaining));
+        } catch(e){}
+        window.location.href = "dashboard.html";
+      });
+    })();
+  </script>
+</body>
+</html>

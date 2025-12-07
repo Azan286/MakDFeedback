@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MakD Systems Techverse Feedback</title>
+
+  <!-- Fav + vendor CSS (keep existing vendors) -->
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+  <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+
+  <!-- Your modified main stylesheet (replace css/main.css with the new content below) -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+  <!-- small inline tweak to ensure body background matches admin MakD look -->
+  <style>body{background: linear-gradient(135deg, #000000 0%, #0a0a0f 50%, #050507 100%) !important;} </style>
+</head>
+<body>
+
+  <div class="container" style="padding:40px 18px;">
+    <div class="feedback-shell">
+
+      <!-- header -->
+      <header class="feedback-header">
+        <div class="brand">Techverse 2025 • Exhibition Feedback</div>
+        <div class="meta">★ MakD Systems — Azan (23 Batch)</div>
+      </header>
+
+      <!-- glass card -->
+      <main class="glass-card">
+        <h1 class="form-title">Provide Your Valuable Feedback</h1>
+        <p class="form-sub">Quick — select a project, answer a few short questions, leave a short feedback. Your input decides the winner!</p>
+
+        <!-- form -->
+        <form id="feedbackForm" class="contact1-form validate-form" action="#"  autocomplete="off" novalidate>
+          <!-- Name + Email row -->
+          <div class="row">
+            <div class="col-md-6">
+              <label class="field-label">Name <span class="req">*</span></label>
+              <input class="input1" type="text" name="name" placeholder="Your full name" required>
+            </div>
+            <div class="col-md-6">
+              <label class="field-label">Email <span class="req">*</span></label>
+              <input class="input1" type="email" name="email" placeholder="you@example.com" required>
+            </div>
+          </div>
+
+          <!-- Department (replaces course) -->
+          <div class="row">
+            <div class="col-12">
+              <label class="field-label">Department <span class="req">*</span></label>
+              <input class="input1" type="text" id="department" name="department" placeholder="Enter your department (e.g. Computer Systems Engineering)" required>
+            </div>
+          </div>
+
+          <!-- Project dropdowns: Hardware / Software / Poster -->
+          <div class="row">
+            <div class="col-md-4 col-12">
+              <label class="field-label">Hardware Projects <span class="req">*</span></label>
+              <select id="hardware_select" name="hardware_project" class="select1" required>
+                <option value="">-- Select hardware project --</option>
+              </select>
+            </div>
+            <div class="col-md-4 col-12">
+              <label class="field-label">Software Projects <span class="req">*</span></label>
+              <select id="software_select" name="software_project" class="select1" required>
+                <option value="">-- Select software project --</option>
+              </select>
+            </div>
+            <div class="col-md-4 col-12">
+              <label class="field-label">Poster Topics <span class="req">*</span></label>
+              <select id="poster_select" name="poster_project" class="select1" required>
+                <option value="">-- Select poster topic --</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Rating -->
+          <div class="row">
+            <div class="col-12">
+              <label class="field-label">How will you rate your overall experience? <span class="req">*</span></label>
+              <div class="rating-group">
+                <label class="rating-pill"><input type="radio" name="experience" value="Bad" required> Bad</label>
+                <label class="rating-pill"><input type="radio" name="experience" value="Average"> Average</label>
+                <label class="rating-pill"><input type="radio" name="experience" value="Good"> Good</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Five short questions (bigger boxes) -->
+          <section class="short-qs">
+            <h3 class="section-title">Quick Questions — (one-line or short paragraph)</h3>
+
+            <div class="row q-row">
+              <div class="col-md-6">
+                <label class="field-label">1. Was the projects easy to understand?</label>
+                <textarea id="q1" name="q1" class="big-text" placeholder="Type a short note (one or two lines)"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="field-label">2. Is the demo / visual clear?</label>
+                <textarea id="q2" name="q2" class="big-text" placeholder="Type a short note"></textarea>
+              </div>
+            </div>
+
+            <div class="row q-row">
+              <div class="col-md-6">
+                <label class="field-label">3. Would you recommend this kind of exhibitions for further tenure?</label>
+                <textarea id="q3" name="q3" class="big-text" placeholder="Type a short note"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="field-label">4. Was the hardware / software robust?</label>
+                <textarea id="q4" name="q4" class="big-text" placeholder="Type a short note"></textarea>
+              </div>
+            </div>
+
+            <div class="row q-row">
+              <div class="col-12">
+                <label class="field-label">5. Any immediate improvement suggestion?</label>
+                <textarea id="q5" name="q5" class="big-text" placeholder="Short suggestion"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <!-- Main feedback larger textarea -->
+          <div class="row">
+            <div class="col-12">
+              <label class="field-label">Detailed Feedback</label>
+              <textarea class="input1 large" name="message" placeholder="Write more detailed feedback here (optional)" required></textarea>
+            </div>
+          </div>
+
+          <!-- hidden summary field for q1..q5 -->
+          <input type="hidden" name="short_questions_summary" id="short_questions_summary" value="">
+
+          <!-- submit -->
+          <div class="row">
+            <div class="col-12" style="text-align:center;margin-top:8px;">
+              <button class="contact1-form-btn" type="submit">
+                <span>Submit <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </main>
+
+      <footer class="form-footer">
+        <div>Expo Feedback System — Dawood University</div>
+        <div class="small-muted">Quick → Reliable → Fair</div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- vendor scripts -->
+  <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+  <script src="vendor/bootstrap/js/popper.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="vendor/select2/select2.min.js"></script>
+  <script src="vendor/tilt/tilt.jquery.min.js"></script>
+
+  <script>
+  // ensure tilt library still initialised (it's harmless without image)
+  if (typeof $ !== 'undefined' && $('.js-tilt').length) {
+    $('.js-tilt').tilt({ scale: 1.06 });
+  }
+  </script>
+
+  <!-- form logic: load projects and combine short questions -->
+  <script>
+  document.addEventListener("DOMContentLoaded", function(){
+
+    function fillSelect(list, selectId){
+      const sel = document.getElementById(selectId);
+      if (!sel) return;
+      list.forEach(function(p){
+        if (!p || !p.name) return;
+        const opt = document.createElement("option");
+        opt.value = p.name;
+        opt.textContent = p.name;
+        sel.appendChild(opt);
+      });
+    }
+
+    // Always load projects from data/projects.json (global list)
+    (function(){
+      fetch("data/projects.json")
+        .then(r => r.json())
+        .then(function(data){
+          const proj = {
+            hardware: Array.isArray(data.hardware) ? data.hardware : [],
+            software: Array.isArray(data.software) ? data.software : [],
+            poster: Array.isArray(data.poster) ? data.poster : []
+          };
+          fillSelect(proj.hardware, "hardware_select");
+          fillSelect(proj.software, "software_select");
+          fillSelect(proj.poster, "poster_select");
+        })
+        .catch(e => console.warn("projects load failed", e));
+    })();
+
+    // on submit: collect q1..q5 and put into short_questions_summary
+    const form = document.getElementById("feedbackForm");
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const name = form.querySelector('[name="name"]').value.trim();
+      const email = form.querySelector('[name="email"]').value.trim();
+      const dept = form.querySelector('[name="department"]').value.trim();
+      const hardware = form.querySelector('[name="hardware_project"]').value.trim();
+      const software = form.querySelector('[name="software_project"]').value.trim();
+      const poster = form.querySelector('[name="poster_project"]').value.trim();
+      const experience = form.querySelector('input[name="experience"]:checked');
+
+      if (!name || !email || !dept || !hardware || !software || !poster || !experience) {
+        alert("Please fill Name, Email, Department, select Hardware, Software and Poster projects and choose your experience.");
+        return;
+      }
+
+      const q1 = (document.getElementById("q1") || {value:''}).value.trim();
+      const q2 = (document.getElementById("q2") || {value:''}).value.trim();
+      const q3 = (document.getElementById("q3") || {value:''}).value.trim();
+      const q4 = (document.getElementById("q4") || {value:''}).value.trim();
+      const q5 = (document.getElementById("q5") || {value:''}).value.trim();
+
+      const summary = [
+        "Q1: " + q1,
+        "Q2: " + q2,
+        "Q3: " + q3,
+        "Q4: " + q4,
+        "Q5: " + q5
+      ].join("\n");
+
+      document.getElementById("short_questions_summary").value = summary;
+
+      const messageField = form.querySelector('[name="message"]');
+      const detailedMessage = messageField ? messageField.value.trim() : "";
+
+      // Build feedback object and store locally so Admin panel can read it (same-device only)
+      const feedback = {
+        id: Date.now().toString(),
+        name: name,
+        email: email,
+        department: dept,
+        hardware_project: hardware,
+        software_project: software,
+        poster_project: poster,
+        project: hardware + " | " + software + " | " + poster,
+        experience: experience ? experience.value : "",
+        short_questions_summary: summary,
+        message: detailedMessage
+      };
+
+      try {
+        const existing = JSON.parse(localStorage.getItem("mst_feedbacks") || "[]");
+        existing.push(feedback);
+        localStorage.setItem("mst_feedbacks", JSON.stringify(existing));
+      } catch(err){
+        console.warn("Could not store feedback locally", err);
+      }
+
+      const btn = document.querySelector('.contact1-form-btn');
+      if(btn){
+        btn.disabled = true;
+        btn.style.opacity = "0.7";
+        btn.innerHTML = 'Sending... <i class="fa fa-spinner fa-spin"></i>';
+      }
+
+      alert("Feedback submitted successfully");
+      setTimeout(function(){
+        window.location.href = "azan.html";
+      }, 1500);
+    });
+
+    // small enhancement: keep selects searchable with select2 if loaded
+    if (typeof $ !== 'undefined' && $.fn.select2) {
+      $('#hardware_select').select2({ width: '100%' });
+      $('#software_select').select2({ width: '100%' });
+      $('#poster_select').select2({ width: '100%' });
+    }
+
+    // admin floating button — matches MakD style (non-intrusive)
+    const adminBtn = document.createElement("a");
+    adminBtn.href = "admin/login.html";
+    adminBtn.textContent = "Admin";
+    adminBtn.className = "admin-floating";
+    document.body.appendChild(adminBtn);
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>

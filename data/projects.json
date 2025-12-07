@@ -1,0 +1,180 @@
+{
+    "hardware": [
+        {
+            "id": "H01",
+            "name": "Humanoid Bot"
+        },
+        {
+            "id": "H02",
+            "name": "Gas leakage detector"
+        },
+        {
+            "id": "H03",
+            "name": "Quadcopter Drone"
+        },
+        {
+            "id": "H04",
+            "name": "Robosoccer"
+        },
+        {
+            "id": "H05",
+            "name": "GPS based Tracking System"
+        },
+        {
+            "id": "H06",
+            "name": "Bluetooth/Wifi Jammer"
+        },
+        {
+            "id": "H07",
+            "name": "Maze Solver"
+        },
+        {
+            "id": "H08",
+            "name": "Digital Attendance System"
+        },
+        {
+            "id": "H09",
+            "name": "Smart Tap System"
+        },
+        {
+            "id": "H10",
+            "name": "Digital Dice"
+        },
+        {
+            "id": "H11",
+            "name": "Dual Axis Solar Pannel"
+        },
+        {
+            "id": "H12",
+            "name": "Electricity Theft detection system"
+        },
+        {
+            "id": "H13",
+            "name": "Line Follower Robot"
+        },
+        {
+            "id": "H14",
+            "name": "Speed Detector"
+        },
+        {
+            "id": "H15",
+            "name": "Water Irrigation System"
+        },
+        {
+            "id": "H16",
+            "name": "Obstacle Detection Robot"
+        },
+        {
+            "id": "H17",
+            "name": "Car Controlled by Hand Gesture"
+        },
+        {
+            "id": "H18",
+            "name": "Radar System"
+        }
+    ],
+    "software": [
+        {
+            "id": "S01",
+            "name": "Hospital Management System"
+        },
+        {
+            "id": "S02",
+            "name": "Emiler"
+        },
+        {
+            "id": "S03",
+            "name": "Jarvis Voice Agent"
+        },
+        {
+            "id": "S04",
+            "name": "AVION : An E-Commerce Website for Home D\u00e9cor Products"
+        },
+        {
+            "id": "S05",
+            "name": "Event Management System"
+        },
+        {
+            "id": "S06",
+            "name": "Bookstore Web Application- MERN"
+        },
+        {
+            "id": "S07",
+            "name": "Furniro (E-commerce website)"
+        },
+        {
+            "id": "S08",
+            "name": "Attendance Monitoring System"
+        },
+        {
+            "id": "S09",
+            "name": "Coffee Shop Website"
+        },
+        {
+            "id": "S10",
+            "name": "Carrer Craft"
+        },
+        {
+            "id": "S11",
+            "name": "Log Analyzer"
+        },
+        {
+            "id": "S12",
+            "name": "Complaint Management System"
+        },
+        {
+            "id": "S13",
+            "name": "Customer Experience Analysis in Banking Reviews"
+        },
+        {
+            "id": "S14",
+            "name": "Business Management System"
+        },
+        {
+            "id": "S15",
+            "name": "Autonomous Drone Path Planning"
+        },
+        {
+            "id": "S16",
+            "name": "Bookmaster AI"
+        },
+        {
+            "id": "S17",
+            "name": "Clothing Website"
+        },
+        {
+            "id": "S18",
+            "name": "Smart Job Lay"
+        },
+        {
+            "id": "S19",
+            "name": "Online Quizz System"
+        },
+        {
+            "id": "S20",
+            "name": "AI Picture and Video Detection"
+        }
+    ],
+    "poster": [
+        {
+            "id": "P01",
+            "name": "Robotics"
+        },
+        {
+            "id": "P02",
+            "name": "Data Analytics"
+        },
+        {
+            "id": "P03",
+            "name": "Search Engine Optimization"
+        },
+        {
+            "id": "P04",
+            "name": "The Metaverse"
+        },
+        {
+            "id": "P05",
+            "name": "Cyberbullying"
+        }
+    ]
+}
